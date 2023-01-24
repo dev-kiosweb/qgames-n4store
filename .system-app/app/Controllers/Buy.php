@@ -360,10 +360,8 @@ class Buy extends BaseController {
                     ));
 
                     $result = curl_exec($curl);
-
                     curl_close($curl);
-
-                    dd($result);
+                    $result = json_decode($result, true);
 
                     if ($result) {
                         echo json_encode($result);

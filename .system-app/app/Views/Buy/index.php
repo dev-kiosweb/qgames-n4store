@@ -130,10 +130,14 @@
 
                                     $("#btn-cek").html('Cek').removeAttr('disabled');
 
-                                    if (result.ok == true) {
-                                        $("#result-detail").html('<div class="alert mt-3 alert-primary">ID Player : '+result.name+'</div>');
+                                    if(result.error_msg){
+                                        $("#result-detail").html('<div class="alert mt-3 alert-danger">'+result.error_msg+'</div>');
                                     } else {
-                                        $("#result-detail").html('<div class="alert mt-3 alert-danger">'+result.msg+'</div>');
+                                        if (result.result.status == 200) {
+                                            $("#result-detail").html('<div class="alert mt-3 alert-primary">ID Player : '+result.nickname+'</div>');
+                                        } else {
+                                            $("#result-detail").html('<div class="alert mt-3 alert-danger">'+result.error_msg+'</div>');
+                                        }
                                     }
                                 }
                             });
