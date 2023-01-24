@@ -337,11 +337,33 @@ class Buy extends BaseController {
         if ($page === 'user-detail') {
             if ($games) {
                 if ($this->request->getPost('id') AND $this->request->getPost('server')) {
-                    $result = $this->M_Base->post('https://api.enivay.com/games/api/' . $games, [
-                        'token' => $this->M_Base->u_get('games_token'),
-                        'id' => addslashes(trim(htmlspecialchars($this->request->getPost('id')))),
-                        'server' => addslashes(trim(htmlspecialchars($this->request->getPost('server')))),
-                    ]);
+                    // $result = $this->M_Base->post('https://api.enivay.com/games/api/' . $games, [
+                    //     'token' => $this->M_Base->u_get('games_token'),
+                    //     'id' => addslashes(trim(htmlspecialchars($this->request->getPost('id')))),
+                    //     'server' => addslashes(trim(htmlspecialchars($this->request->getPost('server')))),
+                    // ]);
+
+                    $id = addslashes(trim(htmlspecialchars($this->request->getPost('id'))));
+                    $zone = addslashes(trim(htmlspecialchars($this->request->getPost('server'))));
+
+                    $curl = curl_init();
+
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => 'https://alfathan.my.id/api/game/'. str_replace('-', '', $games) .'/?id=' . $id . '&zone='. $zone .'&key=' . $this->M_Base->u_get('games_token'),
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => '',
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'GET',
+                    ));
+
+                    $result = curl_exec($curl);
+
+                    curl_close($curl);
+
+                    dd($result);
 
                     if ($result) {
                         echo json_encode($result);
