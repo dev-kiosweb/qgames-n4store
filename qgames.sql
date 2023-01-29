@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 18, 2022 at 07:44 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.23
+-- Host: localhost:3306
+-- Generation Time: Jan 29, 2023 at 10:50 AM
+-- Server version: 5.7.33
+-- PHP Version: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `vigames`
+-- Database: `qgames`
 --
 
 -- --------------------------------------------------------
@@ -469,8 +469,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `balance`, `password`, `level`, `status`, `ip`, `date_create`, `last_ip`, `last_login`) VALUES
-(4, 'Member', 'member@vigames.com', 0, '$2y$10$W6Jr1mBg7AGeKeXyG5zAo.FuRpLGKZbINKM9T3j2lbZJv2H1hV/yK', 'Member', 'On', '', '2022-03-01 00:20:47', '0.0.0.0', '2022-06-27 10:04:01'),
-(5, 'Administrator', 'admin@vigames.com', 100000, '$2y$10$we7pWUWk6uJGk3Q7f0xJneIBNJUXEPVcRqJuI2KkqqEMef08waiqG', 'Admin', 'On', '', '2022-06-26 22:10:49', '192.168.100.93', '2022-10-18 10:54:06');
+(4, 'Member', 'member@qgames.com', 0, '$2y$10$we7pWUWk6uJGk3Q7f0xJneIBNJUXEPVcRqJuI2KkqqE...', 'Member', 'On', '', '2022-03-01 00:20:47', '0.0.0.0', '2022-06-27 10:04:01'),
+(5, 'Administrator', 'admin@qgames.com', 100000, '$2y$10$we7pWUWk6uJGk3Q7f0xJneIBNJUXEPVcRqJuI2KkqqEMef08waiqG', 'Admin', 'On', '', '2022-06-26 22:10:49', '::1', '2023-01-29 16:08:25'),
+(7, 'usertest', 'user@gmail.com', 0, '$2y$10$k5FNjTffNGRntY73u5yJKubXF9G4gQYq.s5Q7c/3IH4JDBlE/MgRm', 'Member', 'On', '', '2023-01-29 16:07:04', '::1', '2023-01-29 16:07:10');
 
 -- --------------------------------------------------------
 
@@ -516,6 +517,26 @@ INSERT INTO `utility` (`id`, `u_key`, `u_value`) VALUES
 (27, 's_pass', '-'),
 (28, 's_port', '-'),
 (29, 'chat_id', '-');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `whatsapp`
+--
+
+CREATE TABLE `whatsapp` (
+  `id` int(11) NOT NULL,
+  `type` varchar(128) NOT NULL,
+  `template` mediumtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `whatsapp`
+--
+
+INSERT INTO `whatsapp` (`id`, `type`, `template`) VALUES
+(1, 'Pending', 'TEst'),
+(2, 'Success', '');
 
 --
 -- Indexes for dumped tables
@@ -588,6 +609,12 @@ ALTER TABLE `utility`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `whatsapp`
+--
+ALTER TABLE `whatsapp`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -649,13 +676,19 @@ ALTER TABLE `topup`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `utility`
 --
 ALTER TABLE `utility`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `whatsapp`
+--
+ALTER TABLE `whatsapp`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
