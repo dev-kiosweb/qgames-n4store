@@ -191,7 +191,7 @@ class Buy extends BaseController {
 
                                         curl_setopt_array($curl, [
                                             CURLOPT_FRESH_CONNECT  => true,
-                                            CURLOPT_URL            => 'https://tripay.co.id/api/transaction/create',
+                                            CURLOPT_URL            => $this->tripay_base . 'transaction/create',
                                             CURLOPT_RETURNTRANSFER => true,
                                             CURLOPT_HEADER         => false,
                                             CURLOPT_HTTPHEADER     => ['Authorization: Bearer '.$apiKey],
@@ -218,6 +218,7 @@ class Buy extends BaseController {
                                             'order_id' => $order_id,
                                             'email_account' => $email['account'],
                                             'email_invoice' => $email['invoice'],
+                                            'wa'            => $this->request->getPost('wa'),
                                             'games_id' => $data_product[0]['games_id'],
                                             'games_img' => $data_games[0]['images'],
                                             'product' => $data_product[0]['product'],
@@ -234,6 +235,16 @@ class Buy extends BaseController {
                                             'date_create' => date('Y-m-d G:i:s'),
                                             'date_update' => date('Y-m-d G:i:s'),
                                         ]);
+
+                                        $data_wa = [
+                                            'status' => 'Pending',
+                                            'product' => $data_product[0]['product'],
+                                            'order_id' => $order_id,
+                                            'price' => $price,
+                                            'note' => $note
+                                        ];
+
+                                        $this->MWa->sendWa($this->request->getPost('wa'), $data_wa, 'Pending');
 
                                         if (empty($result['data']['checkout_url'])) {
                                             return redirect()->to(base_url() . '/status/?order_id=' . $order_id);
@@ -345,23 +356,28 @@ class Buy extends BaseController {
 
                     $id = addslashes(trim(htmlspecialchars($this->request->getPost('id'))));
                     $zone = addslashes(trim(htmlspecialchars($this->request->getPost('server'))));
+                    $key = $this->M_Base->u_get('games_token');
 
-                    $curl = curl_init();
+                    // $curl = curl_init();
 
-                    curl_setopt_array($curl, array(
-                        CURLOPT_URL => 'https://alfathan.my.id/api/game/'. str_replace('-', '', $games) .'/?id=' . $id . '&zone='. $zone .'&key=' . $this->M_Base->u_get('games_token'),
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_ENCODING => '',
-                        CURLOPT_MAXREDIRS => 10,
-                        CURLOPT_TIMEOUT => 0,
-                        CURLOPT_FOLLOWLOCATION => true,
-                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                        CURLOPT_CUSTOMREQUEST => 'GET',
-                    ));
+                    // curl_setopt_array($curl, array(
+                    //     // CURLOPT_URL => 'https://alfathan.my.id/api/game/'. str_replace('-', '', $games) .'/?id=' . $id . '&zone='. $zone . '&server='. $zone .'&key=' . $this->M_Base->u_get('games_token'),
+                    //     CURLOPT_URL => 'https://alfathan.my.id/api/game/mobilelegends/?id=1289651039&zone=15472&key=ba2cc0c0677b0e6',
+                    //     CURLOPT_RETURNTRANSFER => true,
+                    //     CURLOPT_ENCODING => '',
+                    //     CURLOPT_MAXREDIRS => 10,
+                    //     CURLOPT_TIMEOUT => 0,
+                    //     CURLOPT_FOLLOWLOCATION => true,
+                    //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    //     CURLOPT_CUSTOMREQUEST => 'GET',
+                    // ));
 
-                    $result = curl_exec($curl);
-                    curl_close($curl);
-                    $result = json_decode($result, true);
+                    // $result = curl_exec($curl);
+                    // curl_close($curl);
+                    // $result = json_decode($result, true);
+
+                    $json = file_get_contents('https://alfathan.my.id/api/game/mobilelegends/?id='. str_replace('#', '%23', $id) . '&zone='. $zone . '&server='. $zone .'&key='.$key);
+                    $result = json_decode($json);
 
                     if ($result) {
                         echo json_encode($result);

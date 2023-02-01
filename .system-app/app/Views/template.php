@@ -274,6 +274,9 @@
                             <a href="<?= base_url(); ?>/admin/users"><i data-feather="users"></i>Kelola Pengguna</a>
                         </li>
                         <li>
+                            <a href="<?= base_url(); ?>/admin/whatsapp"><i data-feather="mail"></i>Template Whatsapp</a>
+                        </li>
+                        <li>
                             <a href="<?= base_url(); ?>/admin/orders"><i data-feather="shopping-bag"></i>Kelola Pembelian</a>
                         </li>
                         <?php else: ?>
@@ -297,6 +300,10 @@
                             <a href="<?= base_url(); ?>/help"><i data-feather="phone"></i>Bantuan</a>
                         </li>
                         <?php endif ?>
+
+                        <li>
+                            <a href="<?= base_url(); ?>/logout"><i data-feather="phone"></i>Logout</a>
+                        </li>
                     
                     <?php else: ?>
                     <li class="sidebar-title">Menu</li>

@@ -58,6 +58,13 @@ class Config extends BaseController {
             return redirect()->to(str_replace('index.php/', '', site_url(uri_string())));
         }
 
+        if ($this->request->getPost('tombol_fonnte')) {
+            $this->M_Base->u_update('fonnte-token', $this->request->getPost('fonnte_token'));
+
+            $this->session->setFlashdata('success', 'Data konfigurasi diupdate');
+            return redirect()->to(str_replace('index.php/', '', site_url(uri_string())));
+        }
+
         if ($this->request->getPost('tombol_s')) {
             $this->M_Base->u_update('s_host', $this->request->getPost('s_host'));
             $this->M_Base->u_update('s_user', $this->request->getPost('s_user'));
@@ -84,6 +91,9 @@ class Config extends BaseController {
             'digi' => [
                 'user' => $this->M_Base->u_get('digi_user'),
                 'key' => $this->M_Base->u_get('digi_key'),
+            ],
+            'fonnte' => [
+                'token' => $this->M_Base->u_get('fonnte-token'),
             ],
             'pay_saldo' => $this->M_Base->u_get('pay-saldo'),
             'games_token' => $this->M_Base->u_get('games_token'),

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 18, 2022 at 07:44 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.23
+-- Host: localhost:3306
+-- Generation Time: Feb 01, 2023 at 07:51 AM
+-- Server version: 5.7.33
+-- PHP Version: 8.0.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `vigames`
+-- Database: `qgames`
 --
 
 -- --------------------------------------------------------
@@ -92,7 +92,7 @@ CREATE TABLE `games` (
 --
 
 INSERT INTO `games` (`id`, `name`, `slug`, `images`, `category`, `content`, `target`, `sort`, `validasi_status`, `validasi_kode`) VALUES
-(1, 'MOBILE LEGEND', 'mobile-legend', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '1', '<p>Top up ML Diamond hanya dalam hitungan detik!</p>\r\n\r\n<p>Cukup masukan Username MLBB Kamu, pilih jumlah Diamond yang Kamu inginkan, selesaikan pembayaran, dan Diamond akan secara langsung ditambahkan ke akun Mobile Legends Kamu.</p>\r\n', 'B', 2, 'Y', 'ml'),
+(1, 'MOBILE LEGEND', 'mobile-legend', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '1', '<p>Top up ML Diamond hanya dalam hitungan detik!</p>\r\n\r\n<p>Cukup masukan Username MLBB Kamu, pilih jumlah Diamond yang Kamu inginkan, selesaikan pembayaran, dan Diamond akan secara langsung ditambahkan ke akun Mobile Legends Kamu.</p>\r\n', 'B', 2, 'Y', 'mobilelegends'),
 (5, 'FREE FIRE', 'free-fire', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/free_fire_new_tile.png', '1', '<p>Top Up Diamond Free Fire (FF) Kamu hanya dalam hitungan detik!</p>\r\n\r\n<p>Cukup masukkan Player ID Free Fire Kamu, pilih jumlah Diamond yang Kamu inginkan, selesaikan pembayaran, dan Diamond akan secara langsung ditambahkan ke akun Free Fire Kamu.</p>\r\n', 'A', 2, 'Y', 'ff'),
 (7, 'VALORANT', 'valorant', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/valorant_tile.jpg', '1', '', 'A', 8, 'N', ''),
 (8, 'Ragnarok X: Next Generation', 'ragnarok-x-next-generation', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/ragnarok_x_tile.jpg', '1', '', 'A', 10, 'N', ''),
@@ -146,8 +146,7 @@ INSERT INTO `games` (`id`, `name`, `slug`, `images`, `category`, `content`, `tar
 (57, 'Boyaa Capsa Susun', 'boyaa-capsa-susun', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/capsasusun_tile.png', '1', '', 'A', 2, 'N', ''),
 (59, 'LifeAfter Credits', 'lifeafter', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/lifeafter_tile.jpeg', '1', '', 'A', 2, 'N', ''),
 (60, 'Scroll of Onmyoji', 'scroll-of-onmyoji', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/Scroll%20of%20Onmyoji_tile.jpg', '1', '', 'A', 2, 'N', ''),
-(61, 'Marvel Super War', 'marvel-super-war', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/MARVELsuperwar_tile.png', '1', '', 'A', 2, 'N', ''),
-(62, 'Tom and Jerry Chase', 'tom-and-jerry-chase', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/tjc_tile.jpg', '1', '', 'A', 1, 'N', '');
+(61, 'Marvel Super War', 'marvel-super-war', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/MARVELsuperwar_tile.png', '1', '', 'A', 2, 'N', '');
 
 -- --------------------------------------------------------
 
@@ -177,7 +176,7 @@ INSERT INTO `method` (`id`, `name`, `images`, `code`, `provider`) VALUES
 (22, 'ALFAMART', 'https://i.postimg.cc/KcLvSZsx/alfamart.png', '085654008642', 'Manual'),
 (23, 'ALFAMIDI', 'https://i.postimg.cc/vmcbPMVR/alfamidi.png', '085654008642', 'Manual'),
 (24, 'INDOMARET', 'https://i.postimg.cc/Gt1RhySr/indomaret.png', '085654008642', 'Manual'),
-(27, 'QRIS', 'https://i.postimg.cc/Gmr5h1PW/qris-1.png', '085654008642', 'Manual');
+(27, 'QRIS', 'https://i.postimg.cc/Gmr5h1PW/qris-1.png', 'qris', 'Tripay');
 
 -- --------------------------------------------------------
 
@@ -190,6 +189,7 @@ CREATE TABLE `orders` (
   `order_id` varchar(55) NOT NULL,
   `email_account` varchar(250) NOT NULL,
   `email_invoice` varchar(200) NOT NULL,
+  `wa` varchar(120) NOT NULL,
   `games_id` varchar(100) NOT NULL,
   `games_img` varchar(250) NOT NULL,
   `product` varchar(250) NOT NULL,
@@ -209,6 +209,27 @@ CREATE TABLE `orders` (
   `date_create` datetime NOT NULL,
   `date_update` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `order_id`, `email_account`, `email_invoice`, `wa`, `games_id`, `games_img`, `product`, `sku`, `note`, `price`, `target`, `data_no`, `data_zone`, `provider_order_id`, `method_id`, `payment_code`, `payment_url`, `status`, `ip`, `provider`, `date_create`, `date_update`) VALUES
+(1, '97350820', 'user@gmail.com', 'abdilahdadan5@gmail.com', '', '1', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '3 diamonds', 'Nogi-1000', 'Menunggu Pembayaran', 1000, '128965103915472', '', '', '', 27, '085654008642', 'http://localhost/qgames-n4store/status/?order_id=97350820', 'Pending', '::1', 'DF', '2023-02-01 12:56:34', '2023-02-01 12:56:34'),
+(2, '51815419', 'user@gmail.com', 'abdilahdadan5@gmail.com', '085320148791', '1', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '3 diamonds', 'Nogi-1000', 'Menunggu Pembayaran', 1000, '128965103915472', '', '', '', 27, '', 'https://tripay.co.id/checkout/DEV-T1092777036WA8KP', 'Pending', '::1', 'DF', '2023-02-01 13:13:00', '2023-02-01 13:13:00'),
+(3, '64113213', 'user@gmail.com', 'abdilahdadan5@gmail.com', '085320148791', '1', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '3 diamonds', 'Nogi-1000', 'Menunggu Pembayaran', 1000, '128965103915472', '', '', '', 27, '', 'https://tripay.co.id/checkout/DEV-T1092777037WMYW3', 'Pending', '::1', 'DF', '2023-02-01 13:13:27', '2023-02-01 13:13:27'),
+(4, '71779301', 'user@gmail.com', 'abdilahdadan5@gmail.com', '085320148791', '1', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '3 diamonds', 'Nogi-1000', 'Menunggu Pembayaran', 1000, '128965103915472', '', '', '', 27, '', 'https://tripay.co.id/checkout/DEV-T1092777038DJI0N', 'Pending', '::1', 'DF', '2023-02-01 13:14:43', '2023-02-01 13:14:43'),
+(5, '42668574', 'user@gmail.com', 'abdilahdadan5@gmail.com', '085320148791', '1', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '3 diamonds', 'Nogi-1000', 'Menunggu Pembayaran', 1000, '128965103915472', '', '', '', 27, '', 'https://tripay.co.id/checkout/DEV-T1092777042DGZTQ', 'Pending', '::1', 'DF', '2023-02-01 13:49:01', '2023-02-01 13:49:01'),
+(6, '20555466', 'user@gmail.com', 'abdilahdadan5@gmail.com', '085320148791', '1', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '3 diamonds', 'Nogi-1000', 'Menunggu Pembayaran', 1000, '128965103915472', '', '', '', 27, '', 'https://tripay.co.id/checkout/DEV-T10927770432NVKR', 'Pending', '::1', 'DF', '2023-02-01 13:49:39', '2023-02-01 13:49:39'),
+(7, '34941661', 'user@gmail.com', 'abdilahdadan5@gmail.com', '085320148791', '1', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '3 diamonds', 'Nogi-1000', 'Menunggu Pembayaran', 1000, '128965103915472', '', '', '', 27, '', 'https://tripay.co.id/checkout/DEV-T10927770446R6PX', 'Pending', '::1', 'DF', '2023-02-01 14:01:56', '2023-02-01 14:01:56'),
+(8, '08638282', 'user@gmail.com', 'abdilahdadan5@gmail.com', '085320148791', '1', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '3 diamonds', 'Nogi-1000', 'Menunggu Pembayaran', 1000, '128965103915472', '', '', '', 27, '', 'https://tripay.co.id/checkout/DEV-T1092777045GOVZO', 'Pending', '::1', 'DF', '2023-02-01 14:03:04', '2023-02-01 14:03:04'),
+(9, '95381475', 'user@gmail.com', 'abdilahdadan5@gmail.com', '085320148791', '1', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '3 diamonds', 'Nogi-1000', 'Menunggu Pembayaran', 1000, '128965103915472', '', '', '', 27, '', 'https://tripay.co.id/checkout/DEV-T1092777046CJKTS', 'Pending', '::1', 'DF', '2023-02-01 14:04:11', '2023-02-01 14:04:11'),
+(10, '66647654', 'user@gmail.com', 'abdilahdadan5@gmail.com', '085320148791', '1', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '3 diamonds', 'Nogi-1000', 'Menunggu Pembayaran', 1000, '128965103915472', '', '', '', 27, '', 'https://tripay.co.id/checkout/DEV-T109277704840FTF', 'Pending', '::1', 'DF', '2023-02-01 14:15:57', '2023-02-01 14:15:57'),
+(11, '61640368', 'user@gmail.com', 'abdilahdadan5@gmail.com', '085320148791', '1', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '3 diamonds', 'Nogi-1000', 'Menunggu Pembayaran', 1000, '128965103915472', '', '', '', 27, '', 'https://tripay.co.id/checkout/DEV-T1092777049EZV0A', 'Pending', '::1', 'DF', '2023-02-01 14:17:02', '2023-02-01 14:17:02'),
+(12, '84663239', 'user@gmail.com', 'abdilahdadan5@gmail.com', '085320148791', '1', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '3 diamonds', 'Nogi-1000', 'Menunggu Pembayaran', 1000, '128965103915472', '', '', '', 27, '', 'https://tripay.co.id/checkout/DEV-T1092777050CDNSD', 'Pending', '::1', 'DF', '2023-02-01 14:20:23', '2023-02-01 14:20:23'),
+(13, '67080256', 'user@gmail.com', 'abdilahdadan5@gmail.com', '085320148791', '1', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '3 diamonds', 'Nogi-1000', 'Menunggu Pembayaran', 1000, '128965103915472', '', '', '', 27, '', 'https://tripay.co.id/checkout/DEV-T1092777051FNUJC', 'Pending', '::1', 'DF', '2023-02-01 14:22:16', '2023-02-01 14:22:16'),
+(14, '91596403', 'user@gmail.com', 'abdilahdadan5@gmail.com', '085320148791', '1', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '3 diamonds', 'Nogi-1000', 'Menunggu Pembayaran', 1000, '128965103915472', '', '', '', 27, '', 'https://tripay.co.id/checkout/DEV-T1092777052TQDQV', 'Pending', '::1', 'DF', '2023-02-01 14:22:36', '2023-02-01 14:22:36'),
+(15, '60300891', 'user@gmail.com', 'abdilahdadan5@gmail.com', '085320148791', '1', 'https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg', '3 diamonds', 'Nogi-1000', 'Gagal memproses API Buyer -', 1000, '128965103915472', '', '', '', 27, '', 'https://tripay.co.id/checkout/DEV-T1092777053HPMNL', 'Pending', '::1', 'DF', '2023-02-01 14:34:20', '2023-02-01 14:34:20');
 
 -- --------------------------------------------------------
 
@@ -469,8 +490,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `balance`, `password`, `level`, `status`, `ip`, `date_create`, `last_ip`, `last_login`) VALUES
-(4, 'Member', 'member@vigames.com', 0, '$2y$10$W6Jr1mBg7AGeKeXyG5zAo.FuRpLGKZbINKM9T3j2lbZJv2H1hV/yK', 'Member', 'On', '', '2022-03-01 00:20:47', '0.0.0.0', '2022-06-27 10:04:01'),
-(5, 'Administrator', 'admin@vigames.com', 100000, '$2y$10$we7pWUWk6uJGk3Q7f0xJneIBNJUXEPVcRqJuI2KkqqEMef08waiqG', 'Admin', 'On', '', '2022-06-26 22:10:49', '192.168.100.93', '2022-10-18 10:54:06');
+(4, 'Member', 'member@qgames.com', 0, '$2y$10$we7pWUWk6uJGk3Q7f0xJneIBNJUXEPVcRqJuI2KkqqE...', 'Member', 'On', '', '2022-03-01 00:20:47', '0.0.0.0', '2022-06-27 10:04:01'),
+(5, 'Administrator', 'admin@qgames.com', 100000, '$2y$10$we7pWUWk6uJGk3Q7f0xJneIBNJUXEPVcRqJuI2KkqqEMef08waiqG', 'Admin', 'On', '', '2022-06-26 22:10:49', '::1', '2023-02-01 11:27:36'),
+(7, 'usertest', 'user@gmail.com', 0, '$2y$10$k5FNjTffNGRntY73u5yJKubXF9G4gQYq.s5Q7c/3IH4JDBlE/MgRm', 'Member', 'On', '', '2023-01-29 16:07:04', '::1', '2023-02-01 12:18:10');
 
 -- --------------------------------------------------------
 
@@ -495,9 +517,9 @@ INSERT INTO `utility` (`id`, `u_key`, `u_value`) VALUES
 (4, 'web-author', 'Frendy Santoso'),
 (5, 'web-keywords', 'top up game, topup ml, topup, top up, topup murah'),
 (6, 'web-description', 'Jasa top up games termurah #1 Indonesia'),
-(7, 'tripay_api', '-'),
-(8, 'tripay_private', '-'),
-(9, 'tripay_merchant', '-'),
+(7, 'tripay_api', 'DEV-OETuMwWRB80Kj52Yv0HIY5rk7hGUvx5FtwCo7D9M'),
+(8, 'tripay_private', 'ZEd3t-obEc2-mApzQ-Sl4lF-a5bIw'),
+(9, 'tripay_merchant', 'T10927'),
 (10, 'slide-1', 'https://i.postimg.cc/W4HnF9d8/MGames-1.png'),
 (11, 'slide-2', 'https://i.postimg.cc/W4HnF9d8/MGames-1.png'),
 (12, 'slide-3', 'https://i.postimg.cc/W4HnF9d8/MGames-1.png'),
@@ -507,7 +529,7 @@ INSERT INTO `utility` (`id`, `u_key`, `u_value`) VALUES
 (16, 'doc_terms', '<h2><strong>Terms and Conditions</strong></h2>\n\n<p>Welcome to VIGame!</p>\n\n<p>These terms and conditions outline the rules and regulations for the use of VIGame&#39;s Website, located at https://vigames.id.</p>\n\n<p>By accessing this website we assume you accept these terms and conditions. Do not continue to use VIGame if you do not agree to take all of the terms and conditions stated on this page.</p>\n\n<p>The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice and all Agreements: &quot;Client&quot;, &quot;You&quot; and &quot;Your&quot; refers to you, the person log on this website and compliant to the Company&rsquo;s terms and conditions. &quot;The Company&quot;, &quot;Ourselves&quot;, &quot;We&quot;, &quot;Our&quot; and &quot;Us&quot;, refers to our Company. &quot;Party&quot;, &quot;Parties&quot;, or &quot;Us&quot;, refers to both the Client and ourselves. All terms refer to the offer, acceptance and consideration of payment necessary to undertake the process of our assistance to the Client in the most appropriate manner for the express purpose of meeting the Client&rsquo;s needs in respect of provision of the Company&rsquo;s stated services, in accordance with and subject to, prevailing law of Netherlands. Any use of the above terminology or other words in the singular, plural, capitalization and/or he/she or they, are taken as interchangeable and therefore as referring to same.</p>\n\n<h3><strong>Cookies</strong></h3>\n\n<p>We employ the use of cookies. By accessing VIGame, you agreed to use cookies in agreement with the VIGame&#39;s Privacy Policy.</p>\n\n<p>Most interactive websites use cookies to let us retrieve the user&rsquo;s details for each visit. Cookies are used by our website to enable the functionality of certain areas to make it easier for people visiting our website. Some of our affiliate/advertising partners may also use cookies.</p>\n\n<h3><strong>License</strong></h3>\n\n<p>Unless otherwise stated, VIGame and/or its licensors own the intellectual property rights for all material on VIGame. All intellectual property rights are reserved. You may access this from VIGame for your own personal use subjected to restrictions set in these terms and conditions.</p>\n\n<p>You must not:</p>\n\n<ul>\n	<li>Republish material from VIGame</li>\n	<li>Sell, rent or sub-license material from VIGame</li>\n	<li>Reproduce, duplicate or copy material from VIGame</li>\n	<li>Redistribute content from VIGame</li>\n</ul>\n\n<p>This Agreement shall begin on the date hereof. Our Terms and Conditions were created with the help of the <a href=\"https://www.privacypolicies.com/blog/sample-terms-conditions-template/\">Terms And Conditions Template</a>.</p>\n\n<p>Parts of this website offer an opportunity for users to post and exchange opinions and information in certain areas of the website. VIGame does not filter, edit, publish or review Comments prior to their presence on the website. Comments do not reflect the views and opinions of VIGame,its agents and/or affiliates. Comments reflect the views and opinions of the person who post their views and opinions. To the extent permitted by applicable laws, VIGame shall not be liable for the Comments or for any liability, damages or expenses caused and/or suffered as a result of any use of and/or posting of and/or appearance of the Comments on this website.</p>\n\n<p>VIGame reserves the right to monitor all Comments and to remove any Comments which can be considered inappropriate, offensive or causes breach of these Terms and Conditions.</p>\n\n<p>You warrant and represent that:</p>\n\n<ul>\n	<li>You are entitled to post the Comments on our website and have all necessary licenses and consents to do so;</li>\n	<li>The Comments do not invade any intellectual property right, including without limitation copyright, patent or trademark of any third party;</li>\n	<li>The Comments do not contain any defamatory, libelous, offensive, indecent or otherwise unlawful material which is an invasion of privacy</li>\n	<li>The Comments will not be used to solicit or promote business or custom or present commercial activities or unlawful activity.</li>\n</ul>\n\n<p>You hereby grant VIGame a non-exclusive license to use, reproduce, edit and authorize others to use, reproduce and edit any of your Comments in any and all forms, formats or media.</p>\n\n<h3><strong>Hyperlinking to our Content</strong></h3>\n\n<p>The following organizations may link to our Website without prior written approval:</p>\n\n<ul>\n	<li>Government agencies;</li>\n	<li>Search engines;</li>\n	<li>News organizations;</li>\n	<li>Online directory distributors may link to our Website in the same manner as they hyperlink to the Websites of other listed businesses; and</li>\n	<li>System wide Accredited Businesses except soliciting non-profit organizations, charity shopping malls, and charity fundraising groups which may not hyperlink to our Web site.</li>\n</ul>\n\n<p>These organizations may link to our home page, to publications or to other Website information so long as the link: (a) is not in any way deceptive; (b) does not falsely imply sponsorship, endorsement or approval of the linking party and its products and/or services; and (c) fits within the context of the linking party&rsquo;s site.</p>\n\n<p>We may consider and approve other link requests from the following types of organizations:</p>\n\n<ul>\n	<li>commonly-known consumer and/or business information sources;</li>\n	<li>dot.com community sites;</li>\n	<li>associations or other groups representing charities;</li>\n	<li>online directory distributors;</li>\n	<li>internet portals;</li>\n	<li>accounting, law and consulting firms; and</li>\n	<li>educational institutions and trade associations.</li>\n</ul>\n\n<p>We will approve link requests from these organizations if we decide that: (a) the link would not make us look unfavorably to ourselves or to our accredited businesses; (b) the organization does not have any negative records with us; (c) the benefit to us from the visibility of the hyperlink compensates the absence of VIGame; and (d) the link is in the context of general resource information.</p>\n\n<p>These organizations may link to our home page so long as the link: (a) is not in any way deceptive; (b) does not falsely imply sponsorship, endorsement or approval of the linking party and its products or services; and (c) fits within the context of the linking party&rsquo;s site.</p>\n\n<p>If you are one of the organizations listed in paragraph 2 above and are interested in linking to our website, you must inform us by sending an e-mail to VIGame. Please include your name, your organization name, contact information as well as the URL of your site, a list of any URLs from which you intend to link to our Website, and a list of the URLs on our site to which you would like to link. Wait 2-3 weeks for a response.</p>\n\n<p>Approved organizations may hyperlink to our Website as follows:</p>\n\n<ul>\n	<li>By use of our corporate name; or</li>\n	<li>By use of the uniform resource locator being linked to; or</li>\n	<li>By use of any other description of our Website being linked to that makes sense within the context and format of content on the linking party&rsquo;s site.</li>\n</ul>\n\n<p>No use of VIGame&#39;s logo or other artwork will be allowed for linking absent a trademark license agreement.</p>\n\n<h3><strong>iFrames</strong></h3>\n\n<p>Without prior approval and written permission, you may not create frames around our Webpages that alter in any way the visual presentation or appearance of our Website.</p>\n\n<h3><strong>Content Liability</strong></h3>\n\n<p>We shall not be hold responsible for any content that appears on your Website. You agree to protect and defend us against all claims that is rising on your Website. No link(s) should appear on any Website that may be interpreted as libelous, obscene or criminal, or which infringes, otherwise violates, or advocates the infringement or other violation of, any third party rights.</p>\n\n<h3><strong>Your Privacy</strong></h3>\n\n<p>Please read Privacy Policy</p>\n\n<h3><strong>Reservation of Rights</strong></h3>\n\n<p>We reserve the right to request that you remove all links or any particular link to our Website. You approve to immediately remove all links to our Website upon request. We also reserve the right to amen these terms and conditions and it&rsquo;s linking policy at any time. By continuously linking to our Website, you agree to be bound to and follow these linking terms and conditions.</p>\n\n<h3><strong>Removal of links from our website</strong></h3>\n\n<p>If you find any link on our Website that is offensive for any reason, you are free to contact and inform us any moment. We will consider requests to remove links but we are not obligated to or so or to respond to you directly.</p>\n\n<p>We do not ensure that the information on this website is correct, we do not warrant its completeness or accuracy; nor do we promise to ensure that the website remains available or that the material on the website is kept up to date.</p>\n\n<h3><strong>Disclaimer</strong></h3>\n\n<p>To the maximum extent permitted by applicable law, we exclude all representations, warranties and conditions relating to our website and the use of this website. Nothing in this disclaimer will:</p>\n\n<ul>\n	<li>limit or exclude our or your liability for death or personal injury;</li>\n	<li>limit or exclude our or your liability for fraud or fraudulent misrepresentation;</li>\n	<li>limit any of our or your liabilities in any way that is not permitted under applicable law; or</li>\n	<li>exclude any of our or your liabilities that may not be excluded under applicable law.</li>\n</ul>\n\n<p>The limitations and prohibitions of liability set in this Section and elsewhere in this disclaimer: (a) are subject to the preceding paragraph; and (b) govern all liabilities arising under the disclaimer, including liabilities arising in contract, in tort and for breach of statutory duty.</p>\n\n<p>As long as the website and the information and services on the website are provided free of charge, we will not be liable for any loss or damage of any nature.</p>\n'),
 (17, 'help_email', 'me@frendysantoso.my.id'),
 (18, 'help_telpon', '+62 856 5400 8642'),
-(19, 'games_token', '-'),
+(19, 'games_token', 'ba2cc0c0677b0e6'),
 (21, 'pay-saldo', 'On'),
 (23, 'v_id', '-'),
 (24, 'v_key', '-'),
@@ -515,7 +537,30 @@ INSERT INTO `utility` (`id`, `u_key`, `u_value`) VALUES
 (26, 's_user', '-'),
 (27, 's_pass', '-'),
 (28, 's_port', '-'),
-(29, 'chat_id', '-');
+(29, 'chat_id', '-'),
+(30, 'fonnte-token', 'PHbozD0CqBxxpISKE8yz');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `whatsapp`
+--
+
+CREATE TABLE `whatsapp` (
+  `id` int(11) NOT NULL,
+  `type` varchar(128) NOT NULL,
+  `template` mediumtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `whatsapp`
+--
+
+INSERT INTO `whatsapp` (`id`, `type`, `template`) VALUES
+(1, 'Pending', 'Hallo ka berikut detail pesanan kaka :\r\nProduct #product#\r\nStatus #status#'),
+(2, 'Processing', 'Hallo ka berikut detail pesanan kaka :\r\nProduct #product#\r\nStatus #status#'),
+(3, 'Completed', 'Hallo ka berikut detail pesanan kaka :\r\nProduct #product#\r\nStatus #status#'),
+(4, 'Canceled', 'Hallo ka berikut detail pesanan kaka :\r\nProduct #product#\r\nStatus #status#');
 
 --
 -- Indexes for dumped tables
@@ -588,6 +633,12 @@ ALTER TABLE `utility`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `whatsapp`
+--
+ALTER TABLE `whatsapp`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -595,7 +646,7 @@ ALTER TABLE `utility`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `faq`
@@ -607,7 +658,7 @@ ALTER TABLE `faq`
 -- AUTO_INCREMENT for table `games`
 --
 ALTER TABLE `games`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `method`
@@ -619,7 +670,7 @@ ALTER TABLE `method`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `price`
@@ -637,7 +688,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `provider`
 --
 ALTER TABLE `provider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `topup`
@@ -649,13 +700,19 @@ ALTER TABLE `topup`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `utility`
 --
 ALTER TABLE `utility`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `whatsapp`
+--
+ALTER TABLE `whatsapp`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
