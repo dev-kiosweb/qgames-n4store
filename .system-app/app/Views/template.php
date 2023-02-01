@@ -302,7 +302,7 @@
                         <?php endif ?>
 
                         <li>
-                            <a href="<?= base_url(); ?>/logout"><i data-feather="phone"></i>Logout</a>
+                            <a href="<?= base_url(); ?>/logout"><i data-feather="log-out"></i>Logout</a>
                         </li>
                     
                     <?php else: ?>
