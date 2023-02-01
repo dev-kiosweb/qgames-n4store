@@ -10,6 +10,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 use App\Models\M_Base;
+use App\Models\WhatsappModel;
 
 /**
  * Class BaseController
@@ -57,6 +58,8 @@ abstract class BaseController extends Controller
         $this->agent = $this->request->getUserAgent();
 
         $this->M_Base = new M_Base();
+        $this->MWa = new WhatsappModel;
+        $this->tripay_base = "https://tripay.co.id/api-sandbox/";
 
         $this->ip = $request->getIPAddress();
         
@@ -95,13 +98,6 @@ abstract class BaseController extends Controller
                 'icon' => $this->M_Base->u_get('web-icon'),
                 'keywords' => $this->M_Base->u_get('web-keywords'),
                 'description' => $this->M_Base->u_get('web-description'),
-            ],
-            'sm' => [
-                // 'wa' => $this->M_Base->u_get('sm-wa'),
-                // 'yt' => $this->M_Base->u_get('sm-yt'),
-                // 'fb' => $this->M_Base->u_get('sm-fb'),
-                // 'ig' => $this->M_Base->u_get('sm-ig'),
-                // 'tw' => $this->M_Base->u_get('sm-tw'),
             ],
             'menu_active' => 'Home',
         ];

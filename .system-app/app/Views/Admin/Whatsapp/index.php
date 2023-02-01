@@ -29,7 +29,7 @@
                                                 <?php $no = 1; foreach ($whatsapp as $key => $value): ?>
                         						<tr>
                         							<td><?= $no++; ?></td>
-                                                    <td><?= $value['type']; ?></td>
+                                                    <td>Order <?= $value['type']; ?></td>
                         							<td style="width: 10;white-space: nowrap;">
                         								<a href="<?= base_url(); ?>/admin/whatsapp/edit/<?= $value['id']; ?>" class="btn btn-sm btn-primary">Edit</a>
                         								<button onclick="hapus('<?= base_url(); ?>/admin/whatsapp/delete/<?= $value['id']; ?>');" class="btn btn-sm btn-danger">Hapus</button>

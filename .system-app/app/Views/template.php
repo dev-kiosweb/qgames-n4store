@@ -274,7 +274,7 @@
                             <a href="<?= base_url(); ?>/admin/users"><i data-feather="users"></i>Kelola Pengguna</a>
                         </li>
                         <li>
-                            <a href="<?= base_url(); ?>/admin/whatsapp"><i data-feather="users"></i>Template Whatsapp</a>
+                            <a href="<?= base_url(); ?>/admin/whatsapp"><i data-feather="mail"></i>Template Whatsapp</a>
                         </li>
                         <li>
                             <a href="<?= base_url(); ?>/admin/orders"><i data-feather="shopping-bag"></i>Kelola Pembelian</a>

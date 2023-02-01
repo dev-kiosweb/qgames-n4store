@@ -20,7 +20,11 @@
                                         <div class="mb-3">
                                             <label class="col-form-label">Variabel</label>
                                             <ul>
-                                                <li></li>
+                                                <li>#orderid# Untuk menampilkan order id.</li>
+                                                <li>#name# Untuk menampilkan nama pembeli.</li>
+                                                <li>#product# Untuk menampilkan nama produk yang dibeli.</li>
+                                                <li>#price# Untuk menampilkan harga produk yang dibeli.</li>
+                                                <li>#status# Untuk menampilkan statu transaksi.</li>
                                             </ul>
                                         </div>
                                         <div class="mb-3">

@@ -105,6 +105,16 @@ class Sistem extends BaseController {
 
                 	$users = $this->M_Base->data_where('users', 'email', $order['email_account']);
 					
+					$data_wa = [
+                        'status' => 'Canceled',
+                        'product' => $order['product'],
+                        'order_id' => $order['order_id'],
+                        'price' => $order['price'],
+                        'note' => $order['note']
+                    ];
+
+                    $this->MWa->sendWa($order['wa'], $data_wa, 'Canceled');
+
 					if (count($users) == 1) {
 					   $this->M_Base->data_update('users', [
 					       'balance' => $users[0]['balance'] + $order['price']
@@ -120,6 +130,16 @@ class Sistem extends BaseController {
     						'status' => 'Completed',
     						'note' => $note,
     					], $order['id']);
+
+	    				$data_wa = [
+	                        'status' => 'Completed',
+	                        'product' => $order['product'],
+	                        'order_id' => $order['order_id'],
+	                        'price' => $order['price'],
+	                        'note' => $order['note']
+	                    ];
+
+	                    $this->MWa->sendWa($order['wa'], $data_wa, 'Completed');
 
     					$this->M_Base->email_invoice($order['email_invoice'], $order['order_id'], $order['product'], $order['target'], 'Rp ' . number_format($order['price'],0,',','.'));
                     }
@@ -179,6 +199,17 @@ class Sistem extends BaseController {
 		                            	$this->M_Base->data_update('orders', [
 											'note' => $result['data']['message'],
 										], $data_order[0]['id']);
+
+
+										$data_wa = [
+					                        'status' => 'Canceled',
+					                        'product' => $data_order[0]['product'],
+					                        'order_id' => $data_order[0]['order_id'],
+					                        'price' => $data_order[0]['price'],
+					                        'note' => $result['data']['message']
+					                    ];
+
+					                    $this->MWa->sendWa($data_order[0]['wa'], $data_wa, 'Canceled');
 		                            } else {
 
 		                                $note = $result['data']['sn'] !== '' ? $result['data']['sn'] : $result['data']['message'];
@@ -187,6 +218,16 @@ class Sistem extends BaseController {
 											'status' => 'Processing',
 											'note' => $note,
 										], $data_order[0]['id']);
+
+										$data_wa = [
+					                        'status' => 'Processing',
+					                        'product' => $data_order[0]['product'],
+					                        'order_id' => $data_order[0]['order_id'],
+					                        'price' => $data_order[0]['price'],
+					                        'note' => $note
+					                    ];
+
+					                    $this->MWa->sendWa($data_order[0]['wa'], $data_wa, 'Processing');
 
 										echo json_encode(['success' => true]);
 		                            }

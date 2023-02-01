@@ -30,6 +30,9 @@
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="digiflazz-tab" data-bs-toggle="tab" data-bs-target="#digiflazz" type="button" role="tab" aria-controls="digiflazz" aria-selected="false">DigiFlazz</button>
                                 </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="fonnte-tab" data-bs-toggle="tab" data-bs-target="#fonnte" type="button" role="tab" aria-controls="fonnte" aria-selected="false">Fonnte WhastApp Gateway</button>
+                                </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="umum" role="tabpanel" aria-labelledby="umum-tab">
@@ -224,6 +227,26 @@
                                                 <div class="text-end">
                                                     <button class="btn btn-secondary" type="reset">Batal</button>
                                                     <button class="btn btn-primary" type="submit" name="tombol_digi" value="submit">Simpan</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="fonnte" role="tabpanel" aria-labelledby="fonnte-tab">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Fonnte Whatsapp Gateway</h5>
+                                            <form action="" method="POST">
+                                                <div class="mb-3 row">
+                                                    <label class="col-form-label col-md-4">Token</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control" autocomplete="off" name="fonnte_token" value="<?= $fonnte['token']; ?>">
+                                                        <small><a target="_blank" href="https://fonnte.com/">Klik disini untuk daftar</a></small>
+                                                    </div>
+                                                </div>
+                                                <div class="text-end">
+                                                    <button class="btn btn-secondary" type="reset">Batal</button>
+                                                    <button class="btn btn-primary" type="submit" name="tombol_fonnte" value="submit">Simpan</button>
                                                 </div>
                                             </form>
                                         </div>

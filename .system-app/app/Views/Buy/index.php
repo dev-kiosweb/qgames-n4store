@@ -93,7 +93,7 @@
                                                     <input type="email" class="form-control py-3" placeholder="Alamat Email" autocomplete="off" name="email">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <input type="number" class="form-control py-3" placeholder="No. Handphone" autocomplete="off" name="wa">
+                                                    <input type="number" class="form-control py-3" placeholder="No. Handphone" autocomplete="off" name="wa" required>
                                                 </div>
                                                 <div class="text-end">
                                                     <button class="btn btn-primary py-3 px-5" type="submit" name="tombol" value="submit">Beli Sekarang</button>
