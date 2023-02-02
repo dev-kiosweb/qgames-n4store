@@ -9,7 +9,7 @@
         <meta name="author" content="<?= $web['author']; ?>">
 
         <!-- Title -->
-        <title><?= $title; ?> - <?= $web['title']; ?></title>
+        <title><?= $web['title']; ?></title>
 
         <link rel="shortcut icon" href="<?= $web['icon']; ?>">
 
