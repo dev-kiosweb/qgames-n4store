@@ -1,6 +1,6 @@
 													<div class="col-md-4">
                                                         <div class="form-group">
-                                                            <input type="number" class="form-control py-3 text-center" placeholder="ID Akun" autocomplete="off" name="target[]" id="id">
+                                                            <input type="text" class="form-control py-3 text-center" placeholder="ID Akun" autocomplete="off" name="target[]" id="id">
                                                         	<input type="hidden" value="sigle" id="server">
                                                         </div>
                                                     </div>
