@@ -191,7 +191,7 @@ class Buy extends BaseController {
 
                                         curl_setopt_array($curl, [
                                             CURLOPT_FRESH_CONNECT  => true,
-                                            CURLOPT_URL            => $this->tripay_base . 'transaction/create',
+                                            CURLOPT_URL            => 'https://tripay.co.id/api/transaction/create',
                                             CURLOPT_RETURNTRANSFER => true,
                                             CURLOPT_HEADER         => false,
                                             CURLOPT_HTTPHEADER     => ['Authorization: Bearer '.$apiKey],
@@ -218,7 +218,6 @@ class Buy extends BaseController {
                                             'order_id' => $order_id,
                                             'email_account' => $email['account'],
                                             'email_invoice' => $email['invoice'],
-                                            'wa'            => $this->request->getPost('wa'),
                                             'games_id' => $data_product[0]['games_id'],
                                             'games_img' => $data_games[0]['images'],
                                             'product' => $data_product[0]['product'],
@@ -235,16 +234,6 @@ class Buy extends BaseController {
                                             'date_create' => date('Y-m-d G:i:s'),
                                             'date_update' => date('Y-m-d G:i:s'),
                                         ]);
-
-                                        $data_wa = [
-                                            'status' => 'Pending',
-                                            'product' => $data_product[0]['product'],
-                                            'order_id' => $order_id,
-                                            'price' => $price,
-                                            'note' => $note
-                                        ];
-
-                                        $this->MWa->sendWa($this->request->getPost('wa'), $data_wa, 'Pending');
 
                                         if (empty($result['data']['checkout_url'])) {
                                             return redirect()->to(base_url() . '/status/?order_id=' . $order_id);
@@ -344,7 +333,7 @@ class Buy extends BaseController {
         }
     }
 
-    public function get($page = null, $games = null) {
+public function get($page = null, $games = null) {
         if ($page === 'user-detail') {
             if ($games) {
                 if ($this->request->getPost('id') AND $this->request->getPost('server')) {
@@ -376,7 +365,7 @@ class Buy extends BaseController {
                     // curl_close($curl);
                     // $result = json_decode($result, true);
 
-                    $json = file_get_contents('https://alfathan.my.id/api/game/mobilelegends/?id='. str_replace('#', '%23', $id) . '&zone='. $zone . '&server='. $zone .'&key='.$key);
+                    $json = file_get_contents('https://alfathan.my.id/api/game/' . $games .'/?id=' . str_replace('#', '%23', $id) . '&zone='. $zone . '&server='. $zone .'&key='.$key);
                     $result = json_decode($json);
 
                     if ($result) {
