@@ -90,9 +90,6 @@
                                                 <h5 class="card-name">Bukti Pembelian</h5>
                                                 <p>Optional: Jika anda ingin mendapatkan bukti pembayaran atas pembelian anda</p>
                                                 <div class="mb-3">
-                                                    <input type="email" class="form-control py-3" placeholder="Alamat Email" autocomplete="off" name="email">
-                                                </div>
-                                                <div class="mb-3">
                                                     <input type="number" class="form-control py-3" placeholder="No. Handphone" autocomplete="off" name="wa" required>
                                                 </div>
                                                 <div class="text-end">
